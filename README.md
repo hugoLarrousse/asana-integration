@@ -1,12 +1,15 @@
 # asana-integration
+
 custom integration asana api
 
 ## Stack
+
 - nodeJS
 - mongoDB
 - express
 
 ## TO DO
+
 - [ ] oauth 2.0
 - [ ] get & store **workspaces**
 - [ ] get & store **users**
@@ -27,3 +30,4 @@ Should we store then format + store or only format + store?
 - post sync: Core --> Me --> Asana APi --> Core
 - get token (oauth): Core --> Me --> Asana APi --> Core
 - get workspaces/users/projects/tasks: Me --> Asana API
+- webhooks: Asana API --> Me --> Core (or Asana API --> Me --> Core --> Core)
