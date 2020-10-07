@@ -1,0 +1,39 @@
+{
+  "name": "asana-integration",
+  "version": "1.0.0",
+  "description": "custom integration asana api",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hugoLarrousse/asana-integration.git"
+  },
+  "keywords": [
+    "asana",
+    "integration",
+    "oauth"
+  ],
+  "author": "hugo.larrousse@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hugoLarrousse/asana-integration/issues"
+  },
+  "homepage": "https://github.com/hugoLarrousse/asana-integration#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "config": "^3.3.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.0.0",
+    "mongodb": "^3.6.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.6.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0"
+  }
+}

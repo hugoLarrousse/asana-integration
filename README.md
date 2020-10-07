@@ -18,3 +18,12 @@ custom integration asana api
   - [ ] sync data
   - [ ] send data to core
 - [ ] format data for core
+
+Should we store then format + store or only format + store?
+
+## Routes
+
+- post oauth: Core --> Me --> Asana APi --> Core
+- post sync: Core --> Me --> Asana APi --> Core
+- get token (oauth): Core --> Me --> Asana APi --> Core
+- get workspaces/users/projects/tasks: Me --> Asana API
