@@ -10,9 +10,10 @@ const router = express.Router();
 
 router.use('/webhooks', webhooksController);
 
-router.use('/', middleware.verifyFixedToken);
+router.use('/', middleware.verifyToken);
 
 router.use('/oauth', oauthController);
+
 router.use('/sync', syncController);
 
 module.exports = router;
