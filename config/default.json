@@ -12,7 +12,8 @@
   "triggerName": ["h7OpportunityTrigger", "h7EventTrigger", "h7TaskTrigger", "h7AccountTrigger", "h7UserTrigger"],
   "asanaApi": {
     "baseUrl": "https://app.asana.com",
-    "oauthTokenPath": "/-/oauth_token"
+    "oauthTokenPath": "/-/oauth_token",
+    "usersPath": "/api/1.0/users"
   },
   "tokenExpiresIn": 3000000
 }

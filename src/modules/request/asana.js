@@ -9,7 +9,7 @@ const clientId = process.env.asanaClientId;
 const clientSecret = process.env.asanaClientSecret;
 const redirectUri = process.env.asanaRedirectUri;
 
-const { baseUrl, oauthTokenPath } = config.get('asanaApi');
+const { baseUrl, oauthTokenPath, usersPath } = config.get('asanaApi');
 
 const requestAsanaApi = async (method, path, query, headers, data) => {
   const options = {
@@ -42,7 +42,11 @@ const requestAsanaApi = async (method, path, query, headers, data) => {
     logger.error({
       filename: __filename,
       methodName: 'requestAsanaApi',
-      message: `options: ${JSON.stringify(options)}, error: ${JSON.stringify(error.response)}`,
+      message: `options: ${JSON.stringify(options)},
+      data: ${error.response && error.response.data}
+      status: ${error.response && error.response.status}
+      headers: ${error.response && error.response.headers}
+      message: ${error.message}}`,
     });
     return null;
   }
@@ -70,5 +74,10 @@ const refreshAccessToken = (refreshToken) => {
   return requestAsanaApi('POST', oauthTokenPath, null, null, data);
 };
 
+const users = (accessToken) => {
+  return requestAsanaApi('GET', `${usersPath}?opt_fields=name,email,photo,workspaces.name`, null, { Authorization: `Bearer ${accessToken}` });
+};
+
 exports.oauthToken = oauthToken;
 exports.refreshAccessToken = refreshAccessToken;
+exports.users = users;
