@@ -3,13 +3,16 @@ const config = require('config');
 const axios = require('axios');
 const querystring = require('querystring');
 
+const fields = require('../fields');
 const logger = require('../../utils/logger');
 
 const clientId = process.env.asanaClientId;
 const clientSecret = process.env.asanaClientSecret;
 const redirectUri = process.env.asanaRedirectUri;
 
-const { baseUrl, oauthTokenPath, usersPath } = config.get('asanaApi');
+const {
+  baseUrl, oauthTokenPath, usersPath, workspacesPath, projectsPath,
+} = config.get('asanaApi');
 
 const requestAsanaApi = async (method, path, query, headers, data) => {
   const options = {
@@ -43,10 +46,10 @@ const requestAsanaApi = async (method, path, query, headers, data) => {
       filename: __filename,
       methodName: 'requestAsanaApi',
       message: `options: ${JSON.stringify(options)},
-      data: ${error.response && error.response.data}
+      data: ${error.response && JSON.stringify(error.response.data)}
       status: ${error.response && error.response.status}
-      headers: ${error.response && error.response.headers}
-      message: ${error.message}}`,
+      headers: ${error.response && JSON.stringify(error.response.headers)}
+      message: ${error.message}`,
     });
     return null;
   }
@@ -75,9 +78,22 @@ const refreshAccessToken = (refreshToken) => {
 };
 
 const users = (accessToken) => {
-  return requestAsanaApi('GET', `${usersPath}?opt_fields=name,email,photo,workspaces.name`, null, { Authorization: `Bearer ${accessToken}` });
+  return requestAsanaApi('GET',
+    `${usersPath}?opt_fields=${fields.users}`, null, { Authorization: `Bearer ${accessToken}` });
+};
+
+const workspaces = (accessToken) => {
+  return requestAsanaApi('GET',
+    `${workspacesPath}?opt_fields=${fields.workspaces}`, null, { Authorization: `Bearer ${accessToken}` });
+};
+
+const projects = (accessToken) => {
+  return requestAsanaApi('GET',
+    `${projectsPath}?opt_fields=${fields.projects}`, null, { Authorization: `Bearer ${accessToken}` });
 };
 
 exports.oauthToken = oauthToken;
 exports.refreshAccessToken = refreshAccessToken;
 exports.users = users;
+exports.workspaces = workspaces;
+exports.projects = projects;
