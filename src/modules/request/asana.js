@@ -11,7 +11,7 @@ const clientSecret = process.env.asanaClientSecret;
 const redirectUri = process.env.asanaRedirectUri;
 
 const {
-  baseUrl, oauthTokenPath, usersPath, workspacesPath, projectsPath,
+  baseUrl, oauthTokenPath, usersPath, workspacesPath, projectsPath, taskPath,
 } = config.get('asanaApi');
 
 const requestAsanaApi = async (method, path, query, headers, data) => {
@@ -92,8 +92,14 @@ const projects = (accessToken) => {
     `${projectsPath}?opt_fields=${fields.projects}`, null, { Authorization: `Bearer ${accessToken}` });
 };
 
+const tasks = (accessToken) => {
+  return requestAsanaApi('GET',
+    `${taskPath}?opt_fields=${fields.tasks}`, null, { Authorization: `Bearer ${accessToken}` });
+};
+
 exports.oauthToken = oauthToken;
 exports.refreshAccessToken = refreshAccessToken;
 exports.users = users;
 exports.workspaces = workspaces;
 exports.projects = projects;
+exports.tasks = tasks;
