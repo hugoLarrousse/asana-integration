@@ -23,8 +23,8 @@ router.get('/workspaces', async (req, res) => {
     // refresh token
     res.status(200).send({ success: true, data: await Workspaces.get(req.query.accessToken) });
   } catch (e) {
-    logger.error(__filename, 'sync /workspaces', e.message);
-    res.status(400).json({ success: false, message: e.message });
+    logger.error({ filename: __filename, methodName: 'get /workspaces', message: e.message });
+    res.status(400).json({ success: false, message: 'error get workspaces' });
   }
 });
 
@@ -33,8 +33,8 @@ router.get('/users', async (req, res) => {
     // refresh token
     res.status(200).send({ success: true, data: await Users.get(req.query.accessToken) });
   } catch (e) {
-    logger.error(__filename, 'sync /users', e.message);
-    res.status(400).json({ success: false, message: e.message });
+    logger.error({ filename: __filename, methodName: 'get /users', message: e.message });
+    res.status(400).json({ success: false, message: 'error get users' });
   }
 });
 
@@ -43,8 +43,8 @@ router.get('/projects', async (req, res) => {
     // refresh token
     res.status(200).send({ success: true, data: await Projects.get(req.query.accessToken) });
   } catch (e) {
-    logger.error(__filename, 'sync /users', e.message);
-    res.status(400).json({ success: false, message: e.message });
+    logger.error({ filename: __filename, methodName: 'get /projects', message: e.message });
+    res.status(400).json({ success: false, message: 'error get projects' });
   }
 });
 
@@ -53,8 +53,8 @@ router.get('/tasks', async (req, res) => {
     // refresh token
     res.status(200).send({ success: true, data: await Tasks.get(req.query.accessToken) });
   } catch (e) {
-    logger.error(__filename, 'sync /users', e.message);
-    res.status(400).json({ success: false, message: e.message });
+    logger.error({ filename: __filename, methodName: 'get /tasks', message: e.message });
+    res.status(400).json({ success: false, message: 'error get tasks' });
   }
 });
 
