@@ -89,7 +89,7 @@ const workspaces = (accessToken) => {
 
 const projects = (accessToken) => {
   return requestAsanaApi('GET',
-    `${projectsPath}?opt_fields=${fields.projects}`, null, { Authorization: `Bearer ${accessToken}` });
+    `${projectsPath}?opt_fields=${fields.projects}&archived=false`, null, { Authorization: `Bearer ${accessToken}` });
 };
 
 const tasks = (accessToken) => {
