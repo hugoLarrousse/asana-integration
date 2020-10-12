@@ -13,7 +13,10 @@
   "asanaApi": {
     "baseUrl": "https://app.asana.com",
     "oauthTokenPath": "/-/oauth_token",
-    "usersPath": "/api/1.0/users"
+    "usersPath": "/api/1.0/users",
+    "workspacesPath": "/api/1.0/workspaces",
+    "projectsPath": "/api/1.0/projects",
+    "taskPath": "/api/1.0/tasks"
   },
   "tokenExpiresIn": 3000000
 }
