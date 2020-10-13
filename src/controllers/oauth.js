@@ -8,8 +8,10 @@ const router = express.Router();
 router.post('/', async (req, res) => {
   try {
     if (!req.body.code) throw Error('no code provided');
+    console.log('req.body.code', req.body.code);
 
     const tokenData = authentication.getAccessToken(req.body.code);
+    console.log('tokenData', tokenData);
     res.status(200).send({ success: true, data: tokenData });
   } catch (e) {
     logger.error({ filename: __filename, methodName: 'post /oauth', message: e.message });
