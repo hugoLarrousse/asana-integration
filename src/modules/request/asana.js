@@ -21,7 +21,7 @@ const requestAsanaApi = async (method, path, query, headers, data) => {
     ...(headers && { headers }),
     ...(data && { data: querystring.stringify(data) }),
   };
-  console.log('requestAsanaApi -> options', options);
+
   try {
     const response = await axios(options);
 
