@@ -4,11 +4,11 @@ const middleware = require('../utils/middleware');
 
 const oauthController = require('./oauth');
 const syncController = require('./sync');
-const webhooksController = require('./webhooks');
+// const webhooksController = require('./webhooks');
 
 const router = express.Router();
 
-router.use('/webhooks', webhooksController);
+// router.use('/webhooks', webhooksController);
 
 router.use('/', middleware.verifyToken);
 
