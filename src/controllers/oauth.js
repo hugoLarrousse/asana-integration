@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
     if (!req.body.code) throw Error('no code provided');
     console.log('req.body.code', req.body.code);
 
-    const tokenData = authentication.getAccessToken(req.body.code);
+    const tokenData = await authentication.getAccessToken(req.body.code);
     console.log('tokenData', tokenData);
     res.status(200).send({ success: true, data: tokenData });
   } catch (e) {
