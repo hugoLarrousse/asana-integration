@@ -8,7 +8,7 @@ require('dotenv').config();
 const app = express();
 const server = require('http').createServer(app);
 
-const mongo = require('./src/database');
+// const mongo = require('./src/database');
 const logger = require('./src/utils/logger');
 const errorManager = require('./src/utils/errors');
 
@@ -48,34 +48,42 @@ app.all('*', (req, res, next) => {
 
 app.use(errorManager);
 
-logger.info('Creating connection with MongoDB...');
-mongo.createConnection().then((code) => {
-  if (code) {
-    logger.info('Connected');
-    server.listen(port, () => {
-      try {
-        logger.info(`[${env}] Asana integration is running on ${port}`);
-      } catch (e) {
-        logger.error(`${e.message}`);
-      }
-    });
-    mongo.monitorError();
-  } else {
-    logger.error({ filename: __filename, methodName: 'createConnection', message: 'error createConnection' });
+server.listen(port, () => {
+  try {
+    logger.info(`[${env}] Asana integration is running on ${port}`);
+  } catch (e) {
+    logger.error(`${e.message}`);
   }
 });
 
-const signals = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
-signals.forEach(sig => {
-  process.on(sig, () => {
-    server.close((error) => {
-      if (error) {
-        logger.error({ filename: __filename, methodName: 'signals', message: error.message });
-        process.exit(1);
-      } else {
-        mongo.closeConnection();
-        process.exit(0);
-      }
-    });
-  });
-});
+// logger.info('Creating connection with MongoDB...');
+// mongo.createConnection().then((code) => {
+//   if (code) {
+//     logger.info('Connected');
+//     server.listen(port, () => {
+//       try {
+//         logger.info(`[${env}] Asana integration is running on ${port}`);
+//       } catch (e) {
+//         logger.error(`${e.message}`);
+//       }
+//     });
+//     mongo.monitorError();
+//   } else {
+//     logger.error({ filename: __filename, methodName: 'createConnection', message: 'error createConnection' });
+//   }
+// });
+
+// const signals = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
+// signals.forEach(sig => {
+//   process.on(sig, () => {
+//     server.close((error) => {
+//       if (error) {
+//         logger.error({ filename: __filename, methodName: 'signals', message: error.message });
+//         process.exit(1);
+//       } else {
+//         mongo.closeConnection();
+//         process.exit(0);
+//       }
+//     });
+//   });
+// });
