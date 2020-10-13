@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "staging": "npm install && pm2 delete asana && pm2 start server.js --name asana",
+    "production": "npm install && pm2 delete asana && pm2 start server.js --name asana"
   },
   "repository": {
     "type": "git",
