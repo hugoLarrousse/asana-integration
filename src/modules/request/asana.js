@@ -92,9 +92,9 @@ const projects = (accessToken) => {
     `${projectsPath}?opt_fields=${fields.projects}&archived=false`, null, { Authorization: `Bearer ${accessToken}` });
 };
 
-const tasks = (accessToken) => {
+const tasks = (accessToken, project) => {
   return requestAsanaApi('GET',
-    `${taskPath}?opt_fields=${fields.tasks}`, null, { Authorization: `Bearer ${accessToken}` });
+    `${taskPath}?opt_fields=${fields.tasks}&project=${project}`, null, { Authorization: `Bearer ${accessToken}` });
 };
 
 exports.oauthToken = oauthToken;
