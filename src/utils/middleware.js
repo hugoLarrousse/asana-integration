@@ -5,9 +5,10 @@ const pickToken = headers => headers.authorization || null;
 const compareToken = token => token === fixedToken;
 
 exports.verifyToken = (req, res, next) => {
-  if (compareToken(pickToken(req.headers))) {
+  const token = compareToken(pickToken(req.headers));
+  if (token) {
     next();
   } else {
-    res.status(401).send({ error: true, message: 'Error Token' });
+    res.status(401).send({ error: true, message: `Error verify token, token: ${token}` });
   }
 };
