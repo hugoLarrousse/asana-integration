@@ -11,7 +11,7 @@ const clientSecret = process.env.asanaClientSecret;
 const redirectUri = process.env.asanaRedirectUri;
 
 const {
-  baseUrl, oauthTokenPath, usersPath, workspacesPath, projectsPath, taskPath,
+  baseUrl, oauthTokenPath, usersPath, workspacesPath, projectsPath, taskPath, versionAPi, webhookPath,
 } = config.get('asanaApi');
 
 const requestAsanaApi = async (method, path, query, headers, data) => {
@@ -93,9 +93,23 @@ const projects = (accessToken) => {
     `${projectsPath}?opt_fields=${fields.projects}&archived=false`, null, { Authorization: `Bearer ${accessToken}` });
 };
 
-const tasks = (accessToken, project) => {
+const tasksByProject = (accessToken, project) => {
   return requestAsanaApi('GET',
     `${taskPath}?opt_fields=${fields.tasks}&project=${project}`, null, { Authorization: `Bearer ${accessToken}` });
+};
+
+const tasksByUser = (accessToken, user, workspace, startDate = new Date(new Date().getFullYear(), 0, 1).toISOString()) => {
+  return requestAsanaApi('GET',
+    // eslint-disable-next-line max-len
+    `${taskPath}?opt_fields=${fields.tasks}&workspace=${workspace}&assignee=${user}&limit=100&modified_since=${startDate}`, null, { Authorization: `Bearer ${accessToken}` });
+};
+
+const customResource = (accessToken, path) => {
+  return requestAsanaApi('GET', versionAPi + path, null, { Authorization: `Bearer ${accessToken}` });
+};
+
+const postWebhook = (accessToken, data) => {
+  return requestAsanaApi('POST', webhookPath, null, { Authorization: `Bearer ${accessToken}` }, data);
 };
 
 exports.oauthToken = oauthToken;
@@ -103,4 +117,7 @@ exports.refreshAccessToken = refreshAccessToken;
 exports.users = users;
 exports.workspaces = workspaces;
 exports.projects = projects;
-exports.tasks = tasks;
+exports.tasksByProject = tasksByProject;
+exports.tasksByUser = tasksByUser;
+exports.customResource = customResource;
+exports.postWebhook = postWebhook;
