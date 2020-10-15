@@ -28,6 +28,35 @@ router.get('/workspaces', async (req, res) => {
   }
 });
 
+router.get('/workspaces/users', async (req, res) => {
+  try {
+    const workspaces = req.query.workspaces && req.query.workspaces.split(',');
+
+    if (!workspaces) throw Error('no workspaces ids found');
+    // refresh token
+    res.status(200).send({ success: true, data: await Users.getByWorkspaces(req.query.accessToken, workspaces) });
+  } catch (e) {
+    logger.error({ filename: __filename, methodName: 'get /workspaces/tasks', message: e.message });
+    res.status(400).json({ success: false, message: "error get tasks' workspaces" });
+  }
+});
+
+// get tasks by users & workspaces
+router.post('/workspaces/users/tasks', async (req, res) => {
+  try {
+    // refresh token
+    const { users, workspaces, startDate } = req.body;
+    if (!users) throw Error('no users found');
+    if (!workspaces) throw Error('no workspaces found');
+    if (!startDate) throw Error('no startDate found');
+
+    res.status(200).send({ success: true, data: await Tasks.getByUsers(req.query.accessToken, users, workspaces, startDate) });
+  } catch (e) {
+    logger.error({ filename: __filename, methodName: 'get /workspaces/tasks', message: e.message });
+    res.status(400).json({ success: false, message: "error get tasks' workspaces" });
+  }
+});
+
 router.get('/users', async (req, res) => {
   try {
     // refresh token
@@ -48,7 +77,7 @@ router.get('/projects', async (req, res) => {
   }
 });
 
-router.get('/tasks', async (req, res) => {
+router.get('/projects/tasks', async (req, res) => {
   try {
     const projects = req.query.projects && req.query.projects.split(',');
     if (!projects) throw Error('no projects ids found');
@@ -56,7 +85,7 @@ router.get('/tasks', async (req, res) => {
     // refresh token
     res.status(200).send({ success: true, data: await Tasks.get(req.query.accessToken, projects) });
   } catch (e) {
-    logger.error({ filename: __filename, methodName: 'get /tasks', message: e.message });
+    logger.error({ filename: __filename, methodName: 'get /projects/tasks', message: e.message });
     res.status(400).json({ success: false, message: 'error get tasks' });
   }
 });
