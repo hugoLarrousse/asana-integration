@@ -9,6 +9,6 @@ exports.verifyToken = (req, res, next) => {
   if (token) {
     next();
   } else {
-    res.status(401).send({ error: true, message: `Error verify token, token: ${token}` });
+    res.status(401).send({ error: true, message: 'authorization token is missing' });
   }
 };
