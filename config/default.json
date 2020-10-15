@@ -16,7 +16,9 @@
     "usersPath": "/api/1.0/users",
     "workspacesPath": "/api/1.0/workspaces",
     "projectsPath": "/api/1.0/projects",
-    "taskPath": "/api/1.0/tasks"
+    "taskPath": "/api/1.0/tasks",
+    "webhookPath": "/api/1.0/webhooks",
+    "versionAPi": "/api/1.0"
   },
-  "tokenExpiresIn": 3000000
+  "tokenExpiresIn": 2000000
 }
