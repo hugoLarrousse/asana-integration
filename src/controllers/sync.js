@@ -57,6 +57,29 @@ router.post('/workspaces/users/tasks', async (req, res) => {
   }
 });
 
+router.use('/workspaces/users/tasks/live', async (req, res) => {
+  try {
+    const { workspaces } = req.query;
+    if (!workspaces) throw Error('no workspaces found');
+
+    res.status(200).set({
+      connection: 'keep-alive',
+      'cache-control': 'no-cache',
+      'content-type': 'text/event-stream',
+      'X-Accel-Buffering': 'no',
+    });
+
+    const users = Users.formatToGetTasks(workspaces, req.query);
+    const tasks = await Tasks.getByUsers(req.query.accessToken, users, workspaces);
+
+    res.write(`data:${JSON.stringify(tasks)}\n\n`);
+    res.end();
+  } catch (e) {
+    logger.error(__filename, 'use /live', `error stream: req.user._id: ${req.user.email} & pollId: ${req.query.pollId}`);
+    res.end();
+  }
+});
+
 router.get('/users', async (req, res) => {
   try {
     // refresh token
