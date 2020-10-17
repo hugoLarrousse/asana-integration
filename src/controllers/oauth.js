@@ -18,7 +18,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Shouldn't be used
 router.post('/refresh', async (req, res) => {
   try {
     if (!req.body.refreshToken) throw Error('no refresh token provided');
