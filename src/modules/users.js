@@ -28,5 +28,21 @@ const getByWorkspaces = async (accessToken, workspaces) => {
   }));
 };
 
+const formatToGetTasks = (workspaces, usersByWorkspaces) => {
+  const users = [];
+  for (const workspace of workspaces.split(',')) {
+    for (const user of usersByWorkspaces[workspace].split(',')) {
+      const index = users.findIndex(a => a.id === user);
+      if (index === -1) {
+        users.push({ id: user, workspaces: [workspace] });
+      } else {
+        users[index].workspaces.push(workspace);
+      }
+    }
+  }
+  return users;
+};
+
 exports.get = get;
 exports.getByWorkspaces = getByWorkspaces;
+exports.formatToGetTasks = formatToGetTasks;
