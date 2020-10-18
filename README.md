@@ -10,16 +10,16 @@ custom integration asana api
 
 ## TO DO
 
-- [ ] oauth 2.0
-- [ ] get & store **workspaces**
-- [ ] get & store **users**
-- [ ] get & store **projects**
-- [ ] get & store **tasks**
+- [x] oauth 2.0
+- [x] get & store **workspaces**
+- [x] get & store **users**
+- [x] get & store **projects**
+- [x] get & store **tasks**
 
 - create the API to communicate with the integration
-  - [ ] consume oauth
-  - [ ] sync data
-  - [ ] send data to core
+  - [x] consume oauth
+  - [x] sync data
+  - [x] send data to core
 - [ ] format data for core
 
 Should we store then format + store or only format + store?
