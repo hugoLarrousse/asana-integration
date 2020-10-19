@@ -3,13 +3,8 @@
     "maxAttempts": 3,
     "retryDelay": 100
   },
-  "grantType": {
-    "credentials": "authorization_code",
-    "refreshToken": "refresh_token"
-  },
   "env": "development",
   "h7Url": "http://localhost:3333",
-  "triggerName": ["h7OpportunityTrigger", "h7EventTrigger", "h7TaskTrigger", "h7AccountTrigger", "h7UserTrigger"],
   "asanaApi": {
     "baseUrl": "https://app.asana.com",
     "oauthTokenPath": "/-/oauth_token",
@@ -18,7 +13,7 @@
     "projectsPath": "/api/1.0/projects",
     "taskPath": "/api/1.0/tasks",
     "webhookPath": "/api/1.0/webhooks",
-    "versionAPi": "/api/1.0"
+    "version": "/api/1.0"
   },
   "tokenExpiresIn": 2000000
 }

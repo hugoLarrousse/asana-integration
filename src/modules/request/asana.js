@@ -11,7 +11,7 @@ const clientSecret = process.env.asanaClientSecret;
 const redirectUri = process.env.asanaRedirectUri;
 
 const {
-  baseUrl, oauthTokenPath, usersPath, workspacesPath, projectsPath, taskPath, versionAPi, webhookPath,
+  baseUrl, oauthTokenPath, usersPath, workspacesPath, projectsPath, taskPath, version, webhookPath,
 } = config.get('asanaApi');
 
 const requestAsanaApi = async (method, path, query, headers, data) => {
@@ -105,7 +105,7 @@ const tasksByUser = (accessToken, user, workspace, startDate = new Date(new Date
 };
 
 const customResource = (accessToken, path) => {
-  return requestAsanaApi('GET', versionAPi + path, null, { Authorization: `Bearer ${accessToken}` });
+  return requestAsanaApi('GET', version + path, null, { Authorization: `Bearer ${accessToken}` });
 };
 
 const postWebhook = (accessToken, data) => {

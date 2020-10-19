@@ -1,4 +1,4 @@
 {
   "env": "production",
-  "h7Url": "https://api.heptaward.com"
+  "h7Url": "http://localhost:3333"
 }
