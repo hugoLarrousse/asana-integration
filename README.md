@@ -22,7 +22,8 @@ custom integration asana api
 - [ ] create the API to communicate with the integration
   - [x] consume oauth
   - [x] sync data
-  - [ ] send data to core
+  - [x] send data to core
+  - [ ] cron
 - [x] format data for core
 
 We don't store any data, this package is just a parser between your backend and the asana API
