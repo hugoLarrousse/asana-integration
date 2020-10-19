@@ -7,27 +7,35 @@ custom integration asana api
 - nodeJS
 - mongoDB
 - express
+- sse
 
 ## TO DO
 
 - [x] oauth 2.0
-- [x] get & store **workspaces**
-- [x] get & store **users**
-- [x] get & store **projects**
-- [x] get & store **tasks**
+- [x] get **workspaces**
+- [x] get **users**
+- [x] get **projects**
+- [x] get **tasks**
+  - [x] by *projects*
+  - [x] by *assignee* & *workspaces*
 
-- create the API to communicate with the integration
+- [ ] create the API to communicate with the integration
   - [x] consume oauth
   - [x] sync data
-  - [x] send data to core
-- [ ] format data for core
+  - [ ] send data to core
+- [x] format data for core
 
-Should we store then format + store or only format + store?
+We don't store any data, this package is just a parser between your backend and the asana API
 
 ## Routes
 
-- post oauth: Core --> Me --> Asana APi --> Core
-- post sync: Core --> Me --> Asana APi --> Core
-- get token (oauth): Core --> Me --> Asana APi --> Core
-- get workspaces/users/projects/tasks: Me --> Asana API
-- webhooks: Asana API --> Me --> Core (or Asana API --> Me --> Core --> Core)
+- [x] POST **/oauth**: *exchange code for accessToken*
+- [x] POST **/oauth/refresh**: *refresh accessToken*
+- [x] GET **/sync/workspaces**: *get workspaces*
+- [x] GET **/sync/workspaces/users**: *get users by workspaces*
+- [x] POST **/sync/workspaces/users/tasks**: *get tasks by users & workspaces*
+- [x] USE **/sync/workspaces/users/tasks/live**: *(many tasks) get tasks by users & workspaces*
+- [x] GET **/sync/users**: *get all users*
+- [x] GET **/sync/projects**: *get all projects*
+- [x] GET **/sync/projects/tasks**: *get all tasks by projects*
+- [x] POST **/webhooks**: *post a webhook*
