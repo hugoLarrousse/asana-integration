@@ -19,6 +19,7 @@ const format = (tasks) => {
 
       assignee: task.assignee && task.assignee.gid,
       parent: task.parent && task.parent.gid,
+      workspace: task.workspace.gid,
     };
   });
 };
@@ -52,7 +53,8 @@ const getByUser = async (accessToken, userId, workspace, startDate) => {
 };
 
 const getByUsers = async (accessToken, users, workspacesAllowed, startDate) => {
-  const allTasks = {};
+  // const allTasks = {};
+  const allTasks = [];
   for (const user of users) {
     const tasks = [];
     for (const workspace of user.workspaces) {
@@ -61,7 +63,8 @@ const getByUsers = async (accessToken, users, workspacesAllowed, startDate) => {
       if (!tasksAsana) throw Error(`fail get asana tasks, userId: ${user.id}, workspace: ${workspace.id}`);
       tasks.push(...tasksAsana);
     }
-    allTasks[user.id] = tasks;
+    allTasks.push(...tasks);
+    // allTasks[user.id] = tasks;
   }
   return Object.keys(allTasks).length > 0 ? allTasks : null;
 };
