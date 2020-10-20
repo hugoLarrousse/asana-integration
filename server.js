@@ -11,6 +11,7 @@ const server = require('http').createServer(app);
 // const mongo = require('./src/database');
 const logger = require('./src/utils/logger');
 const errorManager = require('./src/utils/errors');
+const cron = require('./src/modules/cron');
 
 const env = config.get('env');
 const { port } = process.env || 3010;
@@ -51,6 +52,7 @@ app.use(errorManager);
 server.listen(port, () => {
   try {
     logger.info(`[${env}] Asana integration is running on ${port}`);
+    cron.recurrentData();
   } catch (e) {
     logger.error(`${e.message}`);
   }
@@ -73,17 +75,17 @@ server.listen(port, () => {
 //   }
 // });
 
-// const signals = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
-// signals.forEach(sig => {
-//   process.on(sig, () => {
-//     server.close((error) => {
-//       if (error) {
-//         logger.error({ filename: __filename, methodName: 'signals', message: error.message });
-//         process.exit(1);
-//       } else {
-//         mongo.closeConnection();
-//         process.exit(0);
-//       }
-//     });
-//   });
-// });
+const signals = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
+signals.forEach(sig => {
+  process.on(sig, () => {
+    cron.stopJob();
+    server.close((error) => {
+      if (error) {
+        logger.error({ filename: __filename, methodName: 'signals', message: error.message });
+        process.exit(1);
+      } else {
+        process.exit(0);
+      }
+    });
+  });
+});
