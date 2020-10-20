@@ -1,7 +1,6 @@
 // function to communicate with h7
 const config = require('config');
 const axios = require('axios');
-const querystring = require('querystring');
 
 const logger = require('../../utils/logger');
 
@@ -13,8 +12,8 @@ const requestH7Api = async (method, path, query, headers, data) => {
   const options = {
     method,
     url: `${baseUrl}${path || ''}${query ? `?${query}` : ''}`,
-    ...(headers && { headers }),
-    ...(data && { data: querystring.stringify(data) }),
+    ...headers && { headers },
+    ...data && { data },
   };
 
   try {
@@ -43,9 +42,7 @@ const requestH7Api = async (method, path, query, headers, data) => {
       methodName: 'requestH7Api',
       message: `options: ${JSON.stringify(options)},
       data: ${error.response && JSON.stringify(error.response.data)}
-      status: ${error.response && error.response.status}
-      headers: ${error.response && JSON.stringify(error.response.headers)}
-      message: ${error.message}`,
+      status: ${error.response && error.response.status}`,
     });
     return null;
   }
@@ -54,4 +51,9 @@ const requestH7Api = async (method, path, query, headers, data) => {
 const getIntegrations = () => {
   return requestH7Api('GET', '/asana/ms/integrations', null, { Authorization: fixedToken });
 };
+
+const sendTasks = (data) => {
+  return requestH7Api('POST', '/asana/ms/tasks', null, { Authorization: fixedToken }, data);
+};
 exports.getIntegrations = getIntegrations;
+exports.sendTasks = sendTasks;
