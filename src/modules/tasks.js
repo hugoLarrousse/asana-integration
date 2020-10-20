@@ -9,7 +9,7 @@ const format = (tasks) => {
       completedAt: task.completed_at,
       completedBy: task.completed_by && task.completed_by.gid,
 
-      createdAt: task.created_at,
+      createdOn: task.created_at,
       dueAt: task.due_at,
       dueOn: task.due_on,
       modifiedAt: task.modified_at,
