@@ -52,28 +52,13 @@ app.use(errorManager);
 server.listen(port, () => {
   try {
     logger.info(`[${env}] Asana integration is running on ${port}`);
-    cron.recurrentData();
+    if (process.env.env !== 'development') {
+      cron.recurrentData();
+    }
   } catch (e) {
     logger.error(`${e.message}`);
   }
 });
-
-// logger.info('Creating connection with MongoDB...');
-// mongo.createConnection().then((code) => {
-//   if (code) {
-//     logger.info('Connected');
-//     server.listen(port, () => {
-//       try {
-//         logger.info(`[${env}] Asana integration is running on ${port}`);
-//       } catch (e) {
-//         logger.error(`${e.message}`);
-//       }
-//     });
-//     mongo.monitorError();
-//   } else {
-//     logger.error({ filename: __filename, methodName: 'createConnection', message: 'error createConnection' });
-//   }
-// });
 
 const signals = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
 signals.forEach(sig => {
