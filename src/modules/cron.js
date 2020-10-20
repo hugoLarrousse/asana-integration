@@ -6,7 +6,7 @@ const h7APi = require('./request/h7');
 
 const SEVEN_MINUTES_IN_MS = 420000;
 
-const job = new CronJob('* * * * * *', async () => {
+const job = new CronJob('*/3 * * * *', async () => {
   try {
     const { data: integrations } = await h7APi.getIntegrations();
 
