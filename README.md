@@ -2,6 +2,8 @@
 
 custom integration asana api
 
+We don't store any data, this package is just a parser between your backend and the asana API
+
 ## Stack
 
 - nodeJS
@@ -19,14 +21,17 @@ custom integration asana api
   - [x] by *projects*
   - [x] by *assignee* & *workspaces*
 
-- [ ] create the API to communicate with the integration
+- [x] create the API to communicate with the integration
   - [x] consume oauth
   - [x] sync data
   - [x] send data to core
-  - [ ] cron
+  - [x] cron
 - [x] format data for core
+- [x] Server-sent events (SSE) for large data set
 
-We don't store any data, this package is just a parser between your backend and the asana API
+### Postponed
+
+- [ ] Webhooks (*current Asana Webhooks can't be correctly used for real time*)
 
 ## Routes
 
@@ -40,3 +45,5 @@ We don't store any data, this package is just a parser between your backend and 
 - [x] GET **/sync/projects**: *get all projects*
 - [x] GET **/sync/projects/tasks**: *get all tasks by projects*
 - [x] POST **/webhooks**: *post a webhook*
+
+*Made with ❤️ by Hugo Larrousse*
