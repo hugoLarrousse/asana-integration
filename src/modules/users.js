@@ -19,13 +19,15 @@ const get = async (accessToken) => {
 const getByWorkspaces = async (accessToken, workspaces) => {
   const users = await get(accessToken);
 
-  return workspaces.reduce((prev, curr, index) => {
+  return workspaces.reduce((prev, curr) => {
     const usersInWorkspaces = users.filter(user => user.workspaces.includes(curr));
-    prev[index][curr].push(...usersInWorkspaces);
+    if (prev[curr]) {
+      prev[curr].push(...usersInWorkspaces);
+    } else {
+      prev[curr] = usersInWorkspaces; // eslint-disable-line no-param-reassign
+    }
     return prev;
-  }, workspaces.map(w => {
-    return { [w]: [] };
-  }));
+  }, {});
 };
 
 const formatToGetTasks = (workspaces, usersByWorkspaces) => {
