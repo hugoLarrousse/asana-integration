@@ -1,11 +1,11 @@
 const { fixedToken } = process.env;
 
-const pickToken = headers => headers.authorization || null;
+const pickToken = req => req.headers.authorization || req.query.authorization || null;
 
 const compareToken = token => token === fixedToken;
 
 exports.verifyToken = (req, res, next) => {
-  const token = compareToken(pickToken(req.headers));
+  const token = compareToken(pickToken(req));
   if (token) {
     next();
   } else {
