@@ -21,6 +21,8 @@ const createLabel = ({
 }) => `
 ${filename && `${colorizer.colorize(level, 'filename')}: ${filename}\n`}${methodName && `${colorizer.colorize(level, 'methodName')}: ${methodName}`}${message && `\n${colorizer.colorize(level, 'message')}: ${message}\n`}`; //eslint-disable-line
 
+const createSpecialLabel = (message) => `${message && `\n${colorizer.colorize('info', message)}`}`; //eslint-disable-line
+
 const warning = (args) => {
   logger.warn(createLabel({ level: 'warn', ...(typeof args === 'string' ? { message: args } : args) }));
 };
@@ -33,6 +35,9 @@ const info = (args) => {
   logger.info(createLabel({ level: 'info', ...(typeof args === 'string' ? { message: args } : args) }));
 };
 
+const message = (m) => logger.info(createSpecialLabel(m));
+
 exports.info = info;
 exports.error = error;
 exports.warning = warning;
+exports.message = message;
