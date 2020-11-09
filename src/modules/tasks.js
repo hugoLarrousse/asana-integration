@@ -52,7 +52,7 @@ const getByUser = async (accessToken, userId, workspace, startDate) => {
   return tasksFormatted;
 };
 
-const getByUsers = async (accessToken, users, workspacesAllowed, startDate) => {
+const getByUsers = async (accessToken, users, workspacesAllowed, startDate, res) => {
   // const allTasks = {};
   const allTasks = [];
   for (const user of users) {
@@ -64,7 +64,9 @@ const getByUsers = async (accessToken, users, workspacesAllowed, startDate) => {
       tasks.push(...tasksAsana);
     }
     allTasks.push(...tasks);
-    // allTasks[user.id] = tasks;
+    if (tasks && res) {
+      res.write(`data:${JSON.stringify(tasks)}\n\n`);
+    }
   }
   return Object.keys(allTasks).length > 0 ? allTasks : null;
 };

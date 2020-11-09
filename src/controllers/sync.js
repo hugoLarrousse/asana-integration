@@ -61,9 +61,9 @@ router.use('/workspaces/users/tasks/live', async (req, res) => {
     });
 
     const users = Users.formatToGetTasks(workspaces, req.query);
-    const tasks = await Tasks.getByUsers(req.query.accessToken, users, workspaces);
+    await Tasks.getByUsers(req.query.accessToken, users, workspaces, undefined, res);
 
-    res.write(`data:${JSON.stringify(tasks)}\n\n`);
+    res.write('data:end\n\n');
     res.end();
   } catch (e) {
     logger.error(__filename, 'use /live', `error stream: req.user._id: ${req.user.email} & pollId: ${req.query.pollId}`);

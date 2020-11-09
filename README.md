@@ -29,7 +29,7 @@ We don't store any data, this package is just a parser between your backend and 
 - [x] format data for core
 - [x] Server-sent events (SSE) for large data set
   - [X] V0 send all data when get from Asana Api
-  - [ ] V1 send data user by user
+  - [X] V1 send data user by user
 
 ### Postponed
 
