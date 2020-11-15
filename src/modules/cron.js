@@ -8,7 +8,7 @@ const SEVEN_MINUTES_IN_MS = 420000;
 
 const job = new CronJob('*/3 * * * *', async () => {
   try {
-    console.time('cron');
+    console.time('cronTime');
     console.log('\x1b[32m%s\x1b[0m', '*** START CRON ***');
     const { data: integrations } = await h7APi.getIntegrations();
 
@@ -26,7 +26,7 @@ const job = new CronJob('*/3 * * * *', async () => {
         await h7APi.sendTasks({ orgaId: integration.orgaId, tasks });
       }
     }
-    console.timeEnd('cron');
+    console.timeEnd('cronTime');
     console.log('\x1b[32m%s\x1b[0m', '***END CRON***\n');
   } catch (e) {
     logger.error({ filename: __filename, methodName: 'cron', message: `${e.message} ${new Date()}` });
