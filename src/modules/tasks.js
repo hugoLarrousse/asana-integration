@@ -1,4 +1,5 @@
 const Asana = require('./request/asana');
+const logger = require('../utils/logger');
 
 const format = (tasks) => {
   return tasks && tasks.data && tasks.data.map(task => {
@@ -60,7 +61,14 @@ const getByUsers = async (accessToken, users, workspacesAllowed, startDate, res)
     for (const workspace of user.workspaces) {
       if (!workspacesAllowed.includes(workspace)) continue;
       const tasksAsana = await getByUser(accessToken, user.id, workspace, startDate);
-      if (!tasksAsana) throw Error(`fail get asana tasks, userId: ${user.id}, workspace: ${workspace.id}`);
+      if (!tasksAsana) {
+        logger.error({
+          filename: __filename,
+          methodName: 'getByUsers',
+          message: `fail get asana tasks, userId: ${user.id}, workspace: ${workspace}`,
+        });
+        continue;
+      }
       tasks.push(...tasksAsana);
     }
     allTasks.push(...tasks);

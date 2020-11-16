@@ -14,21 +14,28 @@ const job = new CronJob('*/3 * * * *', async () => {
 
     if (!integrations) throw Error('no integrations found');
     for (const integration of integrations) {
-      console.log('email', integration.users[0].email);
-      const { accessToken, users, workspaces } = integration;
-      if (!accessToken || !users || !workspaces) {
-        logger.error({ filename: __filename, methodName: 'cron in int', message: `something is missing: ${JSON.stringify(integration)}` });
-        continue;
-      }
-      const tasks = await Tasks.getByUsers(accessToken, users, workspaces, new Date(Date.now() - SEVEN_MINUTES_IN_MS).toISOString());
+      try {
+        console.log('email', integration.users[0].email);
+        const { accessToken, users, workspaces } = integration;
+        if (!accessToken || !users || !workspaces) {
+          logger.error({ filename: __filename, methodName: 'cron in int', message: `something is missing: ${JSON.stringify(integration)}` });
+          continue;
+        }
+        const tasks = await Tasks.getByUsers(accessToken, users, workspaces, new Date(Date.now() - SEVEN_MINUTES_IN_MS).toISOString());
 
-      if (tasks) {
-        await h7APi.sendTasks({ orgaId: integration.orgaId, tasks });
+        if (tasks) {
+          await h7APi.sendTasks({ orgaId: integration.orgaId, tasks });
+        }
+      } catch (e) {
+        logger.error({ filename: __filename, methodName: 'cron in loop', message: `${e.message} ${new Date()}` });
+        continue;
       }
     }
     console.timeEnd('cronTime');
     console.log('\x1b[32m%s\x1b[0m', '***END CRON***\n');
   } catch (e) {
+    console.timeEnd('cronTime');
+    console.log('\x1b[32m%s\x1b[0m', '***END CRON***\n');
     logger.error({ filename: __filename, methodName: 'cron', message: `${e.message} ${new Date()}` });
   }
 });
