@@ -49,9 +49,10 @@ const requestAsanaApi = async (method, path, query, headers, data) => {
       message: `options: ${JSON.stringify(options)},
       data: ${error.response && JSON.stringify(error.response.data)}
       status: ${error.response && error.response.status}
-      headers: ${error.response && JSON.stringify(error.response.headers)}
+
       message: ${error.message}`,
     });
+    // headers: ${error.response && JSON.stringify(error.response.headers)}
     return null;
   }
 };
