@@ -34,7 +34,8 @@
     "express": "^4.17.1",
     "helmet": "^4.0.0",
     "mongodb": "^3.6.0",
-    "winston": "^3.3.3"
+    "winston": "^3.3.3",
+    "winston-slack-webhook-transport": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^7.6.0",
