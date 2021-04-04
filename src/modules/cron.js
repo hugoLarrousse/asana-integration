@@ -8,14 +8,14 @@ const SEVEN_MINUTES_IN_MS = 420000;
 
 const job = new CronJob('*/3 * * * *', async () => {
   try {
-    console.time('cronTime');
-    console.log('\x1b[32m%s\x1b[0m', '*** START CRON ***');
+    // console.time('cronTime');
+    // console.log('\x1b[32m%s\x1b[0m', '*** START CRON ***');
     const { data: integrations } = await h7APi.getIntegrations();
 
     if (!integrations) throw Error('no integrations found');
     for (const integration of integrations) {
       try {
-        console.log('email', integration.users[0].email);
+        // console.log('email', integration.users[0].email);
         const { accessToken, users, workspaces } = integration;
         if (!accessToken || !users || !workspaces) {
           logger.error({ filename: __filename, methodName: 'cron in int', message: `something is missing: ${JSON.stringify(integration)}` });
@@ -31,11 +31,11 @@ const job = new CronJob('*/3 * * * *', async () => {
         continue;
       }
     }
-    console.timeEnd('cronTime');
-    console.log('\x1b[32m%s\x1b[0m', '***END CRON***\n');
+    // console.timeEnd('cronTime');
+    // console.log('\x1b[32m%s\x1b[0m', '***END CRON***\n');
   } catch (e) {
-    console.timeEnd('cronTime');
-    console.log('\x1b[32m%s\x1b[0m', '***END CRON***\n');
+    // console.timeEnd('cronTime');
+    // console.log('\x1b[32m%s\x1b[0m', '***END CRON***\n');
     logger.error({ filename: __filename, methodName: 'cron', message: `${e.message} ${new Date()}` });
   }
 });
